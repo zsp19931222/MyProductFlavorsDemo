@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        ligong {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('F:/MyProductFlavorsDemo/key/key.jks')
+            storePassword '123456'
+        }
+        nannin {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('F:/MyProductFlavorsDemo/key/key.jks')
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.zsp.myproductflavorsdemo"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        ligong {
+            minSdkVersion 22
+            applicationId 'yh.app.appstart.lg'
+            targetSdkVersion 27
+            versionCode 400
+            versionName '4.0.0'
+            signingConfig signingConfigs.ligong
+            manifestPlaceholders = [APP_NAME:"理工APP"]
+            buildConfigField "int", "APP_TYPE", "1"
+            buildConfigField "String", "APP_SERVER", "\"google\""
+        }
+        nannin {
+            minSdkVersion 22
+            applicationId 'com.yhkj.njzyjsxy'
+            targetSdkVersion 29
+            signingConfig signingConfigs.nannin
+            manifestPlaceholders = [APP_NAME:"南宁APP"]
+            buildConfigField "int", "APP_TYPE", "2"
+            buildConfigField "String", "APP_SERVER", "\"baidu\""
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+}
